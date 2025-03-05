@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "iostream": "cpp",
+        "random": "cpp",
+        "thread": "cpp",
+        "ostream": "cpp"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "python.formatting.provider": "none",
+    "C_Cpp.errorSquiggles": "enabled"
+}
