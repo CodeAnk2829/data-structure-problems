@@ -44,12 +44,29 @@ long long iterativeSolution(long long n) {
     return dp[n];
 }
 
+long long optimizedSolution(long long n) {
+    vector<long long> dp(n + 1, 0);
+
+    for (int i = 1; i <= 6 && i <= n; ++i) {
+        dp[i] = 1 << (i - 1);
+    }
+
+    long long prefixSum = 63;
+    for (int i = 7; i <= n; i++) {
+        dp[i] = prefixSum % mod;
+        prefixSum += (dp[i] - dp[i - 6]) % mod;
+    }  
+
+    return dp[n];
+}
+
 int main() {
     long long n;
     cin >> n;
     // vector<long long> dp(n + 1, -1);
     // cout << solve(n, dp) << endl;
 
-    cout << iterativeSolution(n) << endl;
+    // cout << iterativeSolution(n) << endl;
+    cout << optimizedSolution(n) << endl;
     return 0;
 }

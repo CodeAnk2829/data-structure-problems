@@ -1,30 +1,63 @@
-// Min steps to 1
-// Dynamic Programming Approach
-// Time Complexity = O(n)
-
 #include <bits/stdc++.h>
+
 using namespace std;
-int minSteps(int n) {
-    if(n == 1) return 0;
-    int* ans = new int[n + 1];
-    ans[0] = ans[1] = 0;
-    for(int i = 2; i <= n; ++i) {
-        int x = ans[i - 1];
-        int y = INT_MAX, z = INT_MAX;
-        if(i % 2 == 0) {
-            y = ans[i / 2];
-        }
-        if(i % 3 == 0) {
-            z = ans[i / 3];
-        }
-        ans[i] = min(x, min(y, z))  + 1;
+
+int getMaxHiddenChips(vector<int> imageDim, int k)
+{
+    int n = imageDim.size();
+
+    if (n < 2)
+    {
+        return 0;
     }
-    return ans[n];
+
+    sort(imageDim.begin(), imageDim.end());
+
+    int hiddenChipsCount = 0;
+    int s_ptr = 0;
+    int l_ptr = n / 2;
+
+    while (s_ptr < n / 2 && l_ptr < n)
+    {
+        long long s_side = imageDim[s_ptr];
+        long long l_side = imageDim[l_ptr];
+        long long k_factor = k;
+
+        if (l_side >= s_side * k_factor)
+        {
+            hiddenChipsCount++;
+            s_ptr++;
+            l_ptr++;
+        }
+        else
+        {
+            l_ptr++;
+        }
+    }
+
+    return hiddenChipsCount;
 }
 
-int main() {
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     int n;
     cin >> n;
-    cout << minSteps(n);
+
+    vector<int> imageDim(n);
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> imageDim[i];
+    }
+
+    int k;
+    cin >> k;
+
+    int result = getMaxHiddenChips(imageDim, k);
+
+    cout << result << endl;
+
     return 0;
 }
