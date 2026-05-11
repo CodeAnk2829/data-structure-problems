@@ -30,7 +30,7 @@ bool checkNode(TreeNode<int> *root, int key) {
         return true;
     }
     for(int i = 0; i < root->children.size(); ++i) {
-        flag = checkNode(root->children[i], key);
+        flag |= checkNode(root->children[i], key);
     }
     return flag;
 }
